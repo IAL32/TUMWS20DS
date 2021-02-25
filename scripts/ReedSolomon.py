@@ -9,8 +9,12 @@ def recover(parity_matrix=[], encoding_matrix=[], corrupted_string="", corrupted
     parity_matrix_np = np.array(parity_matrix).reshape(
         max_shards + shards, shards)
 
+    print("Parity Matrix (P):\n", parity_matrix_np)
+
     string_matrix = np.array([0 if ord(c) == ord(corrupted_char) else ord(c) for c in corrupted_string]) \
         .reshape(shards, shards)
+    
+    print("Corrupted String Matrix, 0 is corrupted (S):\n", string_matrix)
 
     missing_shards = set()
     for idxx, val in np.ndenumerate(string_matrix):
@@ -22,20 +26,24 @@ def recover(parity_matrix=[], encoding_matrix=[], corrupted_string="", corrupted
     missing_shards_parity_matrix_np = np.delete(
         parity_matrix_np, missing_shards, 0)
 
+    print("Parity matrix without missing shards (Ps):\n", missing_shards_parity_matrix_np)
+
     identity_matrix = np.delete(np.identity(shards), missing_shards, 0)
 
     encoding_matrix_np = np.vstack((identity_matrix, encoding_matrix_np))
 
+    print("Encoding matrix without missing shards (Es):\n", encoding_matrix_np)
+
     recovered_matrix = np.linalg.inv(encoding_matrix_np).dot(
         missing_shards_parity_matrix_np)
 
-    print(recovered_matrix)
+    print("Recovered Matrix (Es^-1 * Ps):\n", recovered_matrix)
 
     recovered_string = [chr(round(ascii))
                         for ascii in recovered_matrix.flatten()]
     # [print(ascii, round(ascii)) for ascii in recovered_matrix.flatten()]
 
-    print("".join(recovered_string))
+    print("Recovered string:\n", "".join(recovered_string))
 
 
 recover(

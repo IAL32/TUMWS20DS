@@ -64,14 +64,11 @@ def printLeafSet(nodes_list=[], node_index=-1):
     next_2 = nodes_list_pool[node_index]
     print("Leaf set:", [previous_2, previous_1, next_1, next_2])
 
-nodes_list = ["002124", "012312", "111324", "112553", "120150", "122140", "140531", "144545", "202043", "205103", "211000", "211230", "221511",
-"222454", "223525", "224123", "225355", "225521", "230234", "233424", "235014", "240050", "240253", "240302", "242510", "243330",
-"244514", "245305", "250541", "251310", "251540", "300231", "314411", "335550", "405302", "405542", "413515", "420501", "422002",
-"424320", "424414", "443023", "444514", "514332", "551154"]
+nodes_list = ["0023","0113","0133","0322","1002","1010","1132","1223","2000","2112","2210","2231"]
 nodes_list.sort(reverse=False)
-node = "242510"
+node = "0023"
 node_index = nodes_list.index(node)
 
 printLeafSet(nodes_list=nodes_list, node_index=node_index)
-printRoutingTable(nodes_list=nodes_list, node=node, node_size=6)
+printRoutingTable(nodes_list=nodes_list, node=node, node_size=4)
 
